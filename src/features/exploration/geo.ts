@@ -1,0 +1,7 @@
+export type Coordinate = { latitude: number; longitude: number; accuracy?: number };
+export type RoadCandidate = { id: string; coordinates: [number, number][]; visited: boolean };
+const EARTH_RADIUS_M = 6371000;
+export function distanceMeters(a: Coordinate, b: Coordinate): number { const p = Math.PI / 180; const dLat = (b.latitude - a.latitude) * p; const dLon = (b.longitude - a.longitude) * p; const lat1 = a.latitude * p; const lat2 = b.latitude * p; const h = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2; return 2 * EARTH_RADIUS_M * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h)); }
+function midpoint(line: [number, number][]): Coordinate { const [longitude, latitude] = line[Math.floor(line.length / 2)] ?? [0, 0]; return { latitude, longitude }; }
+export function nearbyRoads(sample: Coordinate, roads: RoadCandidate[], radiusMeters = 25): RoadCandidate[] { if (sample.accuracy !== undefined && sample.accuracy > radiusMeters) return []; return roads.filter((road) => !road.visited && distanceMeters(sample, midpoint(road.coordinates)) <= radiusMeters); }
+export function shouldAcceptSample(previous: Coordinate | undefined, next: Coordinate, minAccuracy = 50): boolean { if (next.accuracy !== undefined && (!Number.isFinite(next.accuracy) || next.accuracy > minAccuracy)) return false; if (!previous) return true; return distanceMeters(previous, next) >= 1; }
