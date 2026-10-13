@@ -1,1 +1,27 @@
-{ "expo": { "name": "Gedi", "slug": "gedi", "version": "1.0.0", "orientation": "portrait", "scheme": "gedi", "userInterfaceStyle": "light", "experiments": { "typedRoutes": true }, "plugins": ["expo-router", "expo-sqlite"], "ios": { "supportsTablet": true }, "android": { "adaptiveIcon": { "backgroundColor": "#F4F1EA" } } } }
+{
+  "expo": {
+    "name": "Gedi",
+    "slug": "gedi",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "gedi",
+    "userInterfaceStyle": "light",
+    "experiments": {
+      "typedRoutes": true
+    },
+    "plugins": [
+      "expo-router",
+      "expo-sqlite",
+      "expo-splash-screen",
+      "expo-status-bar"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#F4F1EA"
+      }
+    }
+  }
+}
